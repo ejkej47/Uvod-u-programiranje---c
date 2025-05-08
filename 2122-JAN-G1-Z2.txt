@@ -1,0 +1,84 @@
+//UUP 21 22 JAN G1 z2
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+void ubaci(char str[],int id,char slovo){
+    str[strlen(str)+1] = '\0';
+    for(int i=strlen(str);i>=id;i--){
+        str[i+1] = str[i];
+    }
+    str[id] = slovo;
+}
+void izbaci(char str[],int id){
+    for(int i=0;i<strlen(str)-id;i++){
+        str[i+id]=str[i+id+1];
+    }
+    str[strlen(str)] = '\0';
+}
+int sadrzi(char rec[],char slovo){
+    for(int i=0;i<strlen(rec);i++){
+        if(rec[i] == slovo) return 1;
+    }
+    return 0;
+}
+
+int main()
+{
+    char ulaz1[100],ulaz2[100],kp[26][50],slovo;
+    int len1,len2,br=0,flag=0,id=0;
+    fgets(ulaz1,100,stdin);
+    fgets(ulaz2,100,stdin);
+
+    ulaz1[strlen(ulaz1)-1] = '\0';
+    ulaz2[strlen(ulaz2)-1] = '\0';
+
+    len1 = strlen(ulaz1);
+    len2 = strlen(ulaz2);
+
+    for(int i=0;i<len1;i++){
+        if(sadrzi(ulaz2,ulaz1[i])){
+            for(int j=0;j<len1;j++) if(ulaz1[i] == ulaz1[j]) br++;
+
+        for(int k=0;k<strlen(kp);k++){
+            if(ulaz1[i] ==  kp[k][0]) {
+                flag++;
+                ubaci(kp[k],strlen(kp[k]),ulaz1[i]);
+            }
+        }
+        if(flag==0) {
+            kp[strlen(kp)][0] = ulaz1[i];
+            kp[strlen(kp)][1] = '\0';
+        }
+        br=0;
+        flag=0;
+        }
+    }
+
+
+    for(int i=0;i<100;i++){
+        slovo = ulaz2[id];
+        printf("%s %c %d\n",ulaz2,slovo,id);
+        if(slovo == '\0') break;
+        if(sadrzi(ulaz1,slovo)){
+            for(int j=0;j<strlen(kp);j++){
+                if(slovo == kp[j][0]){
+                    for(int k=0;k<strlen(kp[j])-1;k++){
+                        ubaci(ulaz2,id,slovo);
+                        id++;
+                    }
+                }
+            }
+        }
+        else {
+            izbaci(ulaz2,id);
+            id--;
+        }
+        id++;
+    }
+    printf("%s",ulaz2);
+
+
+
+}

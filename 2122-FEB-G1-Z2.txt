@@ -1,0 +1,91 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
+
+void toVeliko(char ulaz[],int pocetak,int kraj){
+    for(int i=pocetak;i<=kraj;i++){
+        if(ulaz[i]>='a' && ulaz[i]<='z') ulaz[i]-=32;
+    }
+}
+
+void f1(char ulaz[],int pocetak,int kraj,int id){
+    char tmp = ulaz[pocetak];
+    for(int i=pocetak;i<id;i++){
+        ulaz[i] = ulaz[i+1];
+    }
+    ulaz[id-1] = tmp;
+}
+
+
+int f2(char ulaz[],int pocetak,int kraj){
+
+    int ct=0,br,x=0;
+    for(int i=pocetak;i<kraj;i++){
+        ct=0;
+        for(int j=kraj;j>pocetak;j--){
+            if(ulaz[i]==ulaz[j]) {
+                ct++;
+                if(ct>1) {
+                    izbaci(ulaz,j);
+                    x++;
+                }
+            }
+        }
+    }
+    return x;
+}
+
+void izbaci(char rec[],int id){
+    for(int i=id;i<strlen(rec);i++){
+        rec[i] = rec[i+1];
+    }
+    rec[strlen(rec)]='\0';
+}
+
+
+
+
+int main()
+{
+    char ulaz[100],slovo;
+    int len,br=0,pocetak=0,kraj,id1=0,id2=0,izbaceni;
+    fgets(ulaz,100,stdin);
+    ulaz[strlen(ulaz)-1] = '\0';
+    len = strlen(ulaz);
+
+
+
+    for(int i=0;i<len+1;i++){
+        slovo = ulaz[i];
+        if(slovo == ' ' || slovo == '\0'){
+          kraj = i;
+
+          printf("%s %d %d\n",ulaz,pocetak,kraj);
+          if(br==0){
+            toVeliko(ulaz,pocetak,kraj);
+          }
+          else if(br==1){
+            f1(ulaz,pocetak,kraj,id1);
+          }
+          else{
+            izbaceni = f2(ulaz,id1,id2);
+          }
+
+          pocetak = kraj+1;
+          if(br==2) pocetak-=izbaceni;
+          id1=0;
+          id2=0;
+          br=0;
+        }
+        else if(slovo == '!') {
+            if(br==0) id1=i;
+            else if(br==1) id2=i;
+            br++;
+        }
+        if(slovo=='\0') break;
+    }
+    printf("%s",ulaz);
+
+}

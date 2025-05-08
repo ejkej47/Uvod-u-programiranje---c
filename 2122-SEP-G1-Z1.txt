@@ -1,0 +1,122 @@
+/*
+9 5 6 10 3 7 5 
+4 10 7 7 6 12 1 
+7 13 1 8 6 5 4 
+12 8 7 9 1 13 6
+4 10 3 9 12 8 7
+9 6 5 11 4 8 10
+3 6 8 16 5 4 11
+
+
+8 7 2 6 3 9 
+3 9 5 8 4 1 
+4 7 2 9 5 3 
+12 9 4 10 7 15
+8 6 3 10 4 5
+11 6 8 10 5 3
+*/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <limits.h>
+#include <math.h>
+
+int prost(int a){
+    if(a==1 || a==0) return 0;
+    for(int i=2;i<=a/2;i++){
+        if(a%i==0) return 0;
+    }
+    return 1;
+}
+
+int main()
+{
+
+
+    int n,mat[100][100],u,d,l,r,flag,najveci=0,br;
+    scanf("%d",&n);
+
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++){
+            scanf("%d",&mat[i][j]);
+        }
+    }
+    printf("\n");
+    for(int pod=n;pod>0;pod--){
+        for(int i=0;i<n-pod+1;i++){
+            u=i;
+            d=pod+i-1;
+
+            for(int pod2=n;pod2>0;pod2--){
+
+            for(int j=0;j<n-pod2+1;j++){
+                l=j;
+                r=pod2+j-1;
+                flag=0;
+                for(int a=u;a<=d;a++){
+                    for(int b=l;b<=r;b++){
+                        if(b==l || b==r || a==u || a==d) if(prost(mat[a][b])) flag++;
+                    }
+                }
+                if(flag==0){
+                   br = abs((l-r)*(u-d));
+                   if(br>najveci) najveci = br;
+                }
+
+                }
+
+            }
+            }
+
+            }
+
+
+
+
+
+    for(int pod=n;pod>0;pod--){
+        for(int i=0;i<n-pod+1;i++){
+            u=i;
+            d=pod+i-1;
+
+            for(int pod2=n;pod2>0;pod2--){
+
+            for(int j=0;j<n-pod2+1;j++){
+                l=j;
+                r=pod2+j-1;
+                flag=0;
+                for(int a=u;a<=d;a++){
+                    for(int b=l;b<=r;b++){
+                        if(b==l || b==r || a==u || a==d) if(prost(mat[a][b])) flag++;
+                    }
+                }
+                if(flag==0){
+                    br = abs((l-r)*(u-d));
+                   if(br==najveci){
+                        for(int a=u;a<=d;a++){
+                        for(int b=l;b<=r;b++){
+                            printf("%d ",mat[a][b]);
+                        }
+                        printf("\n");
+                        }
+                        return 0;
+                   }
+
+                }
+
+            }
+            }
+
+            }
+
+
+    }
+
+
+
+
+
+
+
+
+}

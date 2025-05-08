@@ -1,0 +1,36 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
+
+
+
+int main()
+{
+    char s[100],p[100],slovo;
+    int lenS,lenP,najveci=0,br=0;
+    fgets(s,100,stdin);
+    fgets(p,100,stdin);
+    lenS = strlen(s);
+    lenP = strlen(p);
+
+    for(int i=0;i<lenP;i++){
+        for(int j=0;j<lenS;j++){
+          //  printf("%c %c")
+            if(s[j] == p[i]) br++;
+        }
+        if(br>najveci) najveci = br;
+        br=0;
+    }
+    printf("%d ",najveci);
+     for(int i=0;i<lenP;i++){
+        for(int j=0;j<lenS;j++){
+            if(s[j] == p[i]) br++;
+        }
+        if(br==najveci) printf("%c ",p[i]);
+        br=0;
+    }
+
+
+}

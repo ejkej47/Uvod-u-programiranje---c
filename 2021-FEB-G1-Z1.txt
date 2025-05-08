@@ -1,0 +1,65 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <limits.h>
+#include <math.h>
+
+void f(int mat[][100],int n){
+    int najveci=0,x,y,ct=0;
+    for(int i=0;i<n/2;i++){
+        najveci=0;
+        x=ct;
+        y=ct;
+        for(;x<n-ct-1;x++){
+            if(mat[x][y]>najveci) najveci = mat[x][y];
+        }
+        for(;y<n-ct-1;y++){
+            if(mat[x][y]>najveci) najveci = mat[x][y];
+        }
+        for(;x>ct;x--){
+            if(mat[x][y]>najveci) najveci = mat[x][y];
+        }
+        for(;y>ct;y--){
+            if(mat[x][y]>najveci) najveci = mat[x][y];
+        }
+
+        for(;x<n-ct-1;x++){
+            mat[x][y] = najveci;
+        }
+        for(;y<n-ct-1;y++){
+            mat[x][y] = najveci;        }
+        for(;x>ct;x--){
+            mat[x][y] = najveci;
+        }
+        for(;y>ct;y--){
+            mat[x][y] = najveci;
+        }
+        ct++;
+
+
+    }
+}
+
+int main()
+{
+    int n,mat[100][100];
+    scanf("%d",&n);
+
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++){
+            scanf("%d",&mat[i][j]);
+        }
+    }
+
+    f(mat,n);
+
+    printf("\n");
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++){
+            printf("%d ",mat[i][j]);
+        }
+        printf("\n");
+    }
+
+
+
+}

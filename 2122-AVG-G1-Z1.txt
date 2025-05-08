@@ -1,0 +1,104 @@
+/*
+8 7 2 6 3 9 
+3 9 5 8 4 1 
+4 7 2 9 5 3 
+12 9 4 10 7 15 
+8 6 3 10 4 5
+11 6 8 10 5 3
+
+
+9 5 6 10 3 7 5
+4 10 7 7 6 12 1 
+7 13 1 8 6 5 4 
+12 8 7 9 1 13 6
+4 10 3 9 12 8 7
+9 6 5 11 4 8 10
+3 6 8 16 5 4 11
+*/
+
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <limits.h>
+#include <math.h>
+
+int prost(int a){
+    int br=0;
+    if(a==0 || a==1) return 0;
+    for(int i=2;i<=a/2;i++){
+        if(a%i==0) return 0;
+    }
+    return 1;
+}
+
+int min(int a,int b){
+    return a<b? a:b;
+}
+int max(int a,int b){
+    return a>b? a:b;
+}
+
+int main()
+{
+
+    int n,mat[100][100],najmanji=INT_MAX,najveci=0,id1=0,id2=0,niz1[20][2],niz2[20][2],x=INT_MAX,br;
+    scanf("%d",&n);
+
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++){
+            scanf("%d",&mat[i][j]);
+        }
+    }
+
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++){
+            if(mat[i][j]>najveci && prost(mat[i][j])) najveci = mat[i][j];
+            if(mat[i][j]<najmanji && prost(mat[i][j])) najmanji = mat[i][j];
+
+        }
+    }
+
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++){
+            if(mat[i][j]==najveci) {
+                niz1[id1][0] = i;
+                niz1[id1][1] = j;
+                id1++;
+            }
+            if(mat[i][j]==najmanji) {
+                niz2[id2][0] = i;
+                niz2[id2][1] = j;
+                id2++;
+            }
+        }
+    }
+
+    int l,r,u,d;
+
+    for(int i=0;i<id1;i++){
+        for(int j=0;j<id2;j++){
+            br = abs((niz1[i][0]-niz2[j][0])*(niz1[i][1]-niz2[j][1]));
+            if(br<x) {
+                x = br;
+                u = min(niz1[i][0],niz2[j][0]);
+                d = max(niz1[i][0],niz2[j][0]);
+                l = min(niz1[i][1],niz2[j][1]);
+                r = max(niz1[i][1],niz2[j][1]);
+            }
+        }
+    }
+    printf("\n");
+    for(int i=u;i<=d;i++){
+        for(int j=l;j<=r;j++){
+            printf("%d ",mat[i][j]);
+        }
+        printf("\n");
+    }
+
+
+
+
+
+
+
+}
