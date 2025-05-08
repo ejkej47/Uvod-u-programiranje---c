@@ -1,0 +1,54 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <limits.h>
+#include <math.h>
+
+int f(int a,int n){
+    if(a<0) return n-1;
+    if(a>=n) return 0;
+    return a;
+}
+
+int main()
+{
+    int n,mat[100][100],nova[100][100],g,s,najveci=0,najmanji;
+    scanf("%d",&n);
+
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++){
+            scanf("%d",&mat[i][j]);
+        }
+    }
+
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++){\
+            najveci=0;
+            najmanji = INT_MAX;
+            for(int k=i-1;k<i+2;k++){
+                for(int l=j-1;l<j+2;l++){
+                    printf("%d %d  |  %d %d   %d\n",i,j,f(k,n),f(l,n),mat[f(k,n)][f(l,n)]);
+                    if(!(i==f(k,n) && j==f(l,n)) && mat[f(k,n)][f(l,n)]>najveci) najveci = mat[f(k,n)][f(l,n)];
+                    if(!(i==f(k,n) && j==f(l,n)) && mat[f(k,n)][f(l,n)]<najmanji) najmanji = mat[f(k,n)][f(l,n)];
+                }
+            }
+            nova[i][j] = najveci-najmanji;
+            printf("\n");
+        }
+    }
+
+
+    printf("\n");
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++){
+            printf("%d ",nova[i][j]);
+        }
+        printf("\n");
+    }
+
+
+
+
+
+
+
+}
