@@ -1,0 +1,51 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <limits.h>
+
+void obrni(int mat[100][100],int n){
+    int ct=0,x,y,tmp;
+    for(int i=0;i<n/2;i++){
+        tmp = mat[ct][ct];
+        x=ct;
+        y=ct;
+        for(;x<n-ct-1;x++){ //gore na dole
+           mat[x][y] = mat[x+1][y];
+        }
+        for(;y<n-ct-1;y++) { //desno na levo
+           mat[x][y] = mat[x][y+1];
+        }
+        for(;x>ct;x--){ //dole na gore
+           mat[x][y] = mat[x-1][y];
+        }
+        for(;y>ct;y--) { //levo na desno
+            mat[x][y] = mat[x][y-1];
+        }
+        mat[x][y+1] = tmp;
+
+        ct++;
+    }
+
+
+}
+
+int main()
+{
+    int n,k;
+    scanf("%d %d",&n,&k);
+
+    int mat[100][100];
+
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++){
+            scanf("%d",&mat[i][j]);
+        }
+    }
+    for(int i=0;i<k;i++) obrni(mat,n);
+    printf("\n");
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++){
+            printf("%d ",mat[i][j]);
+        }
+        printf("\n");
+    }
+}

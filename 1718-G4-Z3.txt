@@ -1,0 +1,56 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
+int ponavljanje(char rec[],char slovo){
+    int br=0;
+    for(int i=0;i<strlen(rec);i++){
+        if(rec[i] == slovo) br++;
+    }
+    return br;
+}
+
+int sadrzi(char rec[],char slovo,int pocetak,int kraj){
+    for(int i=pocetak;i<=kraj;i++){
+        if(rec[i] == slovo) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+int main()
+{
+    char ulaz[100],slovo,rec[20],nova[100];
+    int id=0,p,pocetak=0,kraj=0,idNova=0,flag=0;
+
+    fgets(ulaz,100,stdin);
+    ulaz[strlen(ulaz)-1] = '\0';
+
+    for(int i=0;i<strlen(ulaz)+1;i++){
+        slovo = ulaz[i];
+        if(slovo == '-' || slovo=='\0'){
+            rec[id] = '\0';
+            for(int j=0;j<id;j++){
+                p = ponavljanje(rec,rec[j]);
+
+                if(!sadrzi(nova,rec[j],pocetak,kraj) && p>1){
+                    nova[idNova++] = rec[j];
+                    kraj++;
+                    flag++;
+                }
+            }
+            if(flag!=0)nova[idNova++] = '-';
+            kraj++;
+            pocetak=kraj;
+            id=0;
+            flag=0;
+        } else rec[id++] = slovo;
+
+
+    }
+    nova[idNova-1] = '\0';
+    printf("%s",nova);
+
+}

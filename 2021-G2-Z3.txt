@@ -1,0 +1,91 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
+
+int isti(char rec1[],char rec2[]){
+    int len1 = strlen(rec1),len2 = strlen(rec2);
+    if(len1!=len2) return 0;
+    for(int i=0;i<len1;i++){
+        if(rec1[i]!=rec2[i]) return 0;
+    }
+    return 1;
+}
+
+void izbaci(char ulaz[],int pocetak,int kraj){
+    kraj+=2;
+    int i=0;
+    int len= strlen(ulaz);
+    while(ulaz[kraj+i]!='\0'){
+        ulaz[pocetak+i] = ulaz[kraj+i];
+        i++;
+    }
+    ulaz[len-kraj+pocetak] = '\0';
+
+}
+
+int main()
+{
+    char ulaz[100],rec1[20],rec2[20],c1,c2;
+    int max = 0,len,id1=0,id2=0,ct=0,pocetak,kraj;
+    fgets(ulaz,100,stdin);
+    ulaz[strlen(ulaz)-1] = '\0';
+    len = strlen(ulaz);
+    for(int i=0;i<len+1;i++){
+        c1 = ulaz[i];
+        if(c1 == ' ' || c1 == '\0'){
+            rec1[id1] = '\0';
+            for(int j=0;j<len+1;j++){
+            c2 = ulaz[j];
+            if(c2 == ' ' || c2 == '\0'){
+                rec2[id2] = '\0';
+             //   printf("%s %s %d\n",rec1,rec2,isti(rec1,rec2));
+                if(isti(rec1,rec2)) ct++;
+            id2=0;
+            } else rec2[id2++] = c2;
+
+            }
+            if(ct>max) max = ct;
+
+            ct=0;
+            id1=0;
+        } else rec1[id1++] = c1;
+
+    }
+    pocetak=0;
+    for(int i=0;i<len+1;i++){
+        c1 = ulaz[i];
+        if(c1 == ' ' || c1 == '\0'){
+            kraj = i-1;
+            rec1[id1] = '\0';
+            for(int j=0;j<len+1;j++){
+            c2 = ulaz[j];
+            if(c2 == ' ' || c2 == '\0'){
+                rec2[id2] = '\0';
+                if(isti(rec1,rec2)) ct++;
+            id2=0;
+            } else rec2[id2++] = c2;
+
+            }
+            if(ct<max) {
+                printf("%s | %s %d %d %d %d\n",ulaz,rec1,ct,max,pocetak,kraj);
+                izbaci(ulaz,pocetak,kraj);
+                i = i-kraj+pocetak-2;
+            } else pocetak = kraj+2;
+
+            ct=0;
+            id1=0;
+
+            if(c1=='\0') break;
+        } else rec1[id1++] = c1;
+
+    }
+    printf("%s",ulaz);
+
+
+
+
+
+
+}

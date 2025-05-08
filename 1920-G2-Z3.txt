@@ -1,0 +1,44 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
+void bezSpace(char ulaz[]){
+    int j=0;
+    for(int i=0;i<strlen(ulaz);i++){
+        if(ulaz[i]!=' ' && ulaz[i]!='\n') ulaz[j++]=ulaz[i];
+    }
+    ulaz[j]='\0';
+}
+
+int LjNj(char ulaz[],int i,int j){
+    if((ulaz[i]=='l' && ulaz[i+1]=='j' && ulaz[j]=='j' && ulaz[j-1]=='l')
+       ||(ulaz[i]=='n' && ulaz[i+1]=='j' && ulaz[j]=='j' && ulaz[j-1]=='n' )) return 1;
+    return 0;
+}
+
+int palindrom(char ulaz[]){
+    int len = strlen(ulaz);
+    for(int i=0,j=len-1;i<len;i++,j--){
+        printf("%c %c\n",ulaz[i],ulaz[j]);
+        if(LjNj(ulaz,i,j)) {
+            i++;
+            j--;
+            continue;
+        }
+        if(ulaz[i]!=ulaz[j]) {
+            printf("%c %c\n",ulaz[i],ulaz[j]);
+            return 0;
+        }
+    }
+    return 1;
+}
+
+int main()
+{
+    char ulaz[100];
+    fgets(ulaz,100,stdin);
+    bezSpace(ulaz);
+    printf("%d",palindrom(ulaz));
+
+}

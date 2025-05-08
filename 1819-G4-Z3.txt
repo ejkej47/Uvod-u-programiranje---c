@@ -1,0 +1,52 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
+
+int main()
+{
+    char ulaz[100],slovo,broj[20];
+    fgets(ulaz,100,stdin);
+    int len,zbir,najcesci,id=0,br=0,ct,ctNajcesci=0,niz[20];
+    ulaz[strlen(ulaz)-1]='\0';
+    len = strlen(ulaz);
+
+    for(int i=0;i<len+1;i++){
+        slovo = ulaz[i];
+        if(slovo == '-' || slovo == '\0'){
+            niz[br++] = zbir;
+            zbir=0;
+        }
+        else zbir+=slovo-'0';
+
+    }
+    for(int i=0;i<br;i++){
+        for(int j=0;j<br;j++) if(niz[i]==niz[j]) ct++;
+
+        if(ct>ctNajcesci){
+            ctNajcesci = ct;
+            najcesci = niz[i];
+        }
+
+        ct=0;
+    }
+
+    br=0;
+    printf("Zbir %d,",najcesci);
+    for(int i=0;i<len+1;i++){
+        slovo = ulaz[i];
+        if(slovo == '-' || slovo == '\0'){
+            broj[id] = '\0';
+            if(niz[br]==najcesci) printf(" %s",broj);
+            id=0;
+            br++;
+        }
+        else {
+        broj[id++] = slovo;
+        zbir+=slovo-'0';
+        }
+    }
+
+
+}

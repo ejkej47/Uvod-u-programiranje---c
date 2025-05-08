@@ -1,0 +1,55 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <limits.h>
+
+
+int main()
+{
+    int n,u,r,d,l,br=3,i=0,j=0;
+    int mat[100][100],nova[100][100];
+    scanf("%d",&n);
+    u=0;
+    l=0;
+    r=n;
+    d=n;
+
+
+    if(n%2==1) nova[n/2][n/2] = (n*2-1+br)%10;
+    else nova[n/2][n/2-1] = (n*2-1+br)%10;
+
+    while(1){
+        if(u>d || l>r) break;
+        for(;j<r-1;j++){ //levo ka desno
+            nova[i][j] = br;
+        }
+        u++;
+        br++;
+        if(br>=10) br-=10;
+        for(;i<d-1;i++){ //gore ka dole
+            nova[i][j]=br;
+        }
+        r--;
+        br++;
+        if(br>=10) br-=10;
+        for(;j>l;j--){ // desno ka levo
+            nova[i][j]=br;
+        }
+        d--;
+        br++;
+        if(br>=10) br-=10;
+        for(;i>u;i--){ // dole ka gore
+           nova[i][j]=br;
+        }
+        l++;
+        br++;
+        if(br>=10) br-=10;
+        printf("%d %d %d %d %d\n",br,u,l,d,r);
+    }
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++){
+            printf("%d",nova[i][j]);
+        }
+        printf("\n");
+    }
+
+}

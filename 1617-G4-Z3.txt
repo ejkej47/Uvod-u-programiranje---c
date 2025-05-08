@@ -1,0 +1,33 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
+void sifruj(char ulaz[],int pocetak,int kraj){
+    char tmp = ulaz[pocetak];
+    for(int i=pocetak;i<kraj;i++){
+        ulaz[i] = ulaz[i+1];
+    }
+    ulaz[kraj] = tmp;
+}
+
+int main()
+{
+    char ulaz[100];
+    int id=0,pocetak=0,kraj;
+
+    fgets(ulaz,100,stdin);
+    ulaz[strlen(ulaz)-1] = '\0';
+
+    for(int i=0;i<strlen(ulaz)+1;i++){
+       if(ulaz[i] == '-' || ulaz[i] == '\0'){
+        kraj=i-1;
+        sifruj(ulaz,pocetak,kraj);
+        kraj++;
+        pocetak=kraj+1;
+       }
+    }
+    printf("%s",ulaz);
+
+
+}

@@ -1,0 +1,50 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
+int samoglasnik(char slovo){
+    if(slovo=='a' || slovo=='e' || slovo=='i' || slovo=='o' || slovo=='u') return 1;
+    return 0;
+}
+void izbaci(char ulaz[],int id){
+    for(int i=id;i<strlen(ulaz);i++){
+        ulaz[i] = ulaz[i+1];
+    }
+    ulaz[strlen(ulaz)] = '\0';
+}
+
+int main()
+{
+    char ulaz[100],slovo;
+    int len,ct=1,id=1;
+
+    fgets(ulaz,100,stdin);
+    ulaz[strlen(ulaz)-1] = '\0';
+
+    len = strlen(ulaz);
+
+
+    while(1){
+
+        slovo = ulaz[id];
+        if(slovo=='\0') break;
+
+
+        if(slovo == '\"'){
+            ct++;
+            izbaci(ulaz,id);
+        }
+
+        if(ct%2==0){
+            if(!samoglasnik(slovo)) {
+                izbaci(ulaz,id);
+                id--;
+            }
+        }
+        id++;
+    }
+    ulaz[id] = '\"';
+    ulaz[id+1] = '\0';
+    printf("%s",ulaz);
+}

@@ -1,0 +1,44 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
+char veceOdDeset(char c,int br){
+    return (c-'0'+br)%10+'0';
+}
+
+void fk(char ulaz[],int pocetak,int kraj){
+    int n = (kraj-pocetak)/2+1;
+    int br=1;
+    for(int i=pocetak;i<n+pocetak;i++){
+        ulaz[i] = veceOdDeset(ulaz[i],br);
+        if(!((kraj-pocetak)%2==0 && i==pocetak+n-1))
+        ulaz[kraj+pocetak-i] = veceOdDeset(ulaz[kraj+pocetak-i],br);
+        br++;
+    }
+}
+
+
+
+int main()
+{
+    char ulaz[100];
+    int id=0,pocetak=0,kraj;
+
+    fgets(ulaz,100,stdin);
+    ulaz[strlen(ulaz)-1] = '\0';
+
+    for(int i=0;i<strlen(ulaz)+1;i++){
+      if(ulaz[i] == ' ' || ulaz[i] == '\0'){
+        kraj = i-1;
+
+        fk(ulaz,pocetak,kraj);
+
+        kraj++;
+        pocetak = kraj+1;
+      }
+    }
+    printf("%s",ulaz);
+
+
+}

@@ -1,0 +1,62 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int podstr(char rec1[],char rec2[]){
+    int len1 = strlen(rec1);
+    int len2 = strlen(rec2);
+    int br=0,id=0;
+
+    for(int i=0;i<len1;i++){
+        for(int k=0;k<len2;k++){
+
+        for(int j=k;j<len2;j++){
+            if(rec1[i+j-k] == rec2[j])br++;
+         //  printf("%c %c %d\n",rec1[i+j-k],rec2[j],br);
+        }
+       // printf("\n");
+        if(br>2) return 1;
+        br=0;
+        }
+
+    }
+    return 0;
+}
+
+int isti(char rec1[],char rec2[]){
+    if(strlen(rec1)!=strlen(rec2)) return 0;
+    for(int i=0;i<strlen(rec1);i++){
+        if(rec1[i]!=rec2[i]) return 0;
+    }
+    return 1;
+}
+
+
+int main()
+{
+    char ulaz[100],rec1[20],rec2[20],slovo,c;
+    int len,id1=0,id2=0;
+
+    fgets(ulaz,100,stdin);
+    ulaz[strlen(ulaz)-1] = '\0';
+
+    len = strlen(ulaz);
+    
+    for(int i=0;i<len+1;i++){
+        slovo = ulaz[i];
+        if(slovo == ' ' || slovo=='\0'){
+            rec1[id1] = '\0';
+            for(int j=i;j<len+1;j++){
+                c=ulaz[j];
+                if(c == ' ' || c=='\0'){
+                    rec2[id2] = '\0';
+                    if(podstr(rec1,rec2) && !isti(rec1,rec2)) printf("%s %s\n",rec1,rec2);
+                    id2=0;
+                } else rec2[id2++] = c;
+            }
+            id1=0;
+        } else rec1[id1++] = slovo;
+    }
+
+
+}

@@ -1,0 +1,68 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
+int isti(char rec1[],char rec2[]){
+    int len1= strlen(rec1);
+    int len2 = strlen(rec2);
+    if(len1!=len2) return 0;
+    for(int i=0;i<len1;i++){
+        if(rec1[i]!=rec2[i]) return 0;
+    }
+    return 1;
+
+}
+
+
+int main()
+{
+    char ulaz[100],slovo1,rec1[20],slovo2,rec2[20],rec[20],slovo;
+    int len,id1=0,id2=0,ct=0,niz[20],idNiz=0,max=0,idSpace=0,id=0;
+
+    fgets(ulaz,100,stdin);
+    ulaz[strlen(ulaz)-1] = '\0';
+
+    len = strlen(ulaz);
+
+    for(int i=0;i<len+1;i++){
+        slovo1 = ulaz[i];
+        if(slovo1 == ' ' || slovo1 == '\0'){
+            rec1[id1] = '\0';
+
+            for(int j=0;j<len+1;j++){
+                slovo2 = ulaz[j];
+                if(slovo2 == ' ' || slovo2 == '\0'){
+                rec2[id2] = '\0';
+
+                if(isti(rec1,rec2)) ct++;
+
+
+                id2=0;
+                }else rec2[id2++] = ulaz[j];
+            }
+
+        niz[idNiz++] = ct;
+        ct=0;
+        id1=0;
+        }else rec1[id1++] = ulaz[i];
+    }
+    
+    for(int i=0;i<idNiz;i++){
+        if(max<niz[i]) max = niz[i];
+        printf("%d ",niz[i]);
+    }
+    for(int i=0;i<len+1;i++){
+        slovo = ulaz[i];
+        if(slovo == ' ' || slovo == '\0'){
+            rec[id] = '\0';
+            if(niz[idSpace++]==max){
+                printf("%s %d",rec,max+1);
+                break;
+            }
+
+
+            id=0;
+        }else rec[id++] = ulaz[i];
+    }
+}

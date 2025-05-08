@@ -1,0 +1,67 @@
+/*
+4 5
+1 2 2 2
+6 3 1 1
+5 8 1 1
+6 3 3 1
+7 2 1 2
+*/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
+int palindrom(int matrica[][100],int n,int j){
+    for(int i=0;i<n;i++){
+       // printf("%d %d\n",matrica[i][j],matrica[n-i-1][j]);
+        if(matrica[i][j]!=matrica[n-i-1][j]) return 0;
+    }
+    return 1;
+}
+
+int najveci(int matrica[][100],int n,int j){
+    int x=0;
+    for(int i=0;i<n;i++){
+       if(x<matrica[i][j]) x=matrica[i][j];
+    }
+    return x;
+}
+
+void rotiraj(int matrica[][100],int n,int j,int k){
+    k = k%n;
+    int tmp;
+    while(k--){
+        tmp = matrica[n-1][j];
+        for(int i=n-1;i>0;i--){
+            matrica[i][j] = matrica[i-1][j];
+        }
+        matrica[0][j]=tmp;
+    }
+}
+
+
+
+int main()
+{
+    int n,m;
+    scanf("%d %d",&n,&m);
+    int matrica[100][100];
+    for(int i=0;i<n;i++){
+        for(int j=0;j<m;j++){
+            scanf("%d",&matrica[i][j]);
+        }
+    }
+    for(int j=0;j<m;j++){
+        if(!palindrom(matrica,n,j)) rotiraj(matrica,n,j,najveci(matrica,n,j));
+    }
+    printf("\n\n");
+    for(int i=0;i<n;i++){
+        for(int j=0;j<m;j++){
+            printf("%d ",matrica[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+

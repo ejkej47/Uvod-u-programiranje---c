@@ -1,0 +1,70 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+/*
+3. (8p) Za 2 zadata stringa, S i P, pronaći ukupan broj pojavljivanja svih različitih
+podstringova stringa P unutar stringa S koji se dobiju kada se iz P izbaci jedno slovo
+(izbaciju se sva pojavljivanja istog slova).
+
+Ulaz:                   Ulaz:                   Ulaz:
+cbaebabacd              BBDDADADA               AAABABAA
+abc                     ABBDA                   AABA
+
+Izlaz: 2                Izlaz: 3                 Izlaz: 3
+(ab-1, ac-1, bc-0)      (BBD-1, ADA-2,ABBA-0)   (AAA-1, B-2)
+
+*/
+int podstr(char s[],char p[]){
+    int lenS = strlen(s);
+    int lenP = strlen(p);
+    int br=0,n=0;
+    for(int i=0;i<lenS-lenP+1;i++){
+        for(int j=0;j<lenP;j++){
+            if(s[i+j] == p[j]) br++;
+        }
+        if(br == lenP) n++;
+        br=0;
+    }
+    return n;
+}
+
+int sadrzi(char rec[],char slovo){
+    for(int i=0;i<strlen(rec);i++){
+        if(rec[i]==slovo) return 1;
+    }
+    return 0;
+}
+
+int main()
+{
+    char s[100],p[100],slova[100],rec[100],nova[100];
+    int j,id=0,idS=0;
+    fgets(s,100,stdin);
+    fgets(p,100,stdin);
+
+    s[strlen(s)-1] = '\0';
+    p[strlen(p)-1] = '\0';
+
+    int lenS = strlen(s);
+    int lenP = strlen(p);
+
+    for(int i=0;i<lenP;i++){
+        j=0;
+        id=0;
+        while(p[j]!='\0'){
+            if(p[j]!=p[i]) nova[id++] = p[j];
+            j++;
+        }
+
+        nova[id] = '\0';
+
+        if(!sadrzi(slova,p[i])){
+            printf("%s - %d, ",nova,podstr(s,nova));
+        }
+        slova[idS++] = p[i];
+    }
+
+
+
+}

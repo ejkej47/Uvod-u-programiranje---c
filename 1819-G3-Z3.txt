@@ -1,0 +1,36 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
+void obrni(char ulaz[],int pocetak,int kraj){
+    char tmp[100];
+    for(int i=pocetak;i<kraj;i++){
+        tmp[i] = ulaz[kraj+pocetak-i-1];
+    }
+    tmp[kraj]='\0';
+
+    for(int i=pocetak;i<kraj;i++){
+        ulaz[i] = tmp[i];
+    }
+
+}
+
+
+int main()
+{
+    char ulaz[100];
+    int len,ct=0,pocetak=0,kraj;
+    fgets(ulaz,100,stdin);
+    ulaz[strlen(ulaz)-1] = '\0';
+    len = strlen(ulaz);
+    for(int i=0;i<len+1;i++){
+        if(ulaz[i]==' ' || ulaz[i] == '\0'){
+            kraj = i;
+            if(ct%2==1) obrni(ulaz,pocetak,kraj);
+            pocetak = kraj+1;
+            ct=0;
+        }else ct++;
+    }
+    printf("%s",ulaz);
+}

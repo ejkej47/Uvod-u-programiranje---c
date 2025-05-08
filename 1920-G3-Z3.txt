@@ -1,0 +1,31 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
+int razdaljina(char rec[],int id){
+    for(int i=id+1;i<strlen(rec);i++){
+        if(rec[i]==rec[id]) return i-id-1;
+    }
+    return INT_MAX;
+}
+
+int main()
+{
+    char ulaz[100],rec[20],slovo;
+    int id=0,min=INT_MAX;
+    fgets(ulaz,100,stdin);
+
+    for(int i=0;i<strlen(ulaz);i++){
+        min=INT_MAX;
+        slovo = ulaz[i];
+        if(slovo==' ' || slovo =='\n'){
+            rec[id] = '\0';
+            for(int j=0;j<id;j++) if(min>razdaljina(rec,j)) min = razdaljina(rec,j);
+
+            if(min!=INT_MAX) printf("%s - %d\n",rec,min);
+
+            id=0;
+        }else rec[id++] = slovo;
+    }
+}
